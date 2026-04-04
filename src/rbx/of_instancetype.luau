@@ -7,7 +7,7 @@ local function of_instancetype<T>(class_name: string)
 		local x_class = Instance(x).ClassName
 
 		if x_class ~= class_name then
-			error(`expected Instance of class {class_name}, got {x_class}`)
+			error(`expected Instance of class {class_name}, got {x_class}`, 2)
 		end
 
 		return x

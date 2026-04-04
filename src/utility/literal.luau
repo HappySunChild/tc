@@ -6,7 +6,7 @@ local function literal<T>(ltrl: T)
 			return x
 		end
 
-		error(`expected value to exactly equal literal {repr(ltrl)}, got {repr(x)}`)
+		error(`expected value to exactly equal literal {typeof(ltrl)} {repr(ltrl)}, got {typeof(x)} {repr(x)}`, 2)
 	end
 end
 

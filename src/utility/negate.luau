@@ -10,12 +10,7 @@ local function negate<T>(check: (unknown) -> T, label: string?)
 		local ok = pcall(check, x)
 
 		if ok then
-			local lang_type = type(x)
-			local ext_type = typeof(x)
-
-			local display_type = if ext_type ~= lang_type then `{lang_type} ({ext_type})` else lang_type
-
-			error(`expected opposite of {label}, got {display_type} ({repr(x)})`)
+			error(`expected opposite of {label}, got {typeof(x)} ({repr(x)})`, 2)
 		end
 
 		return x :: any
