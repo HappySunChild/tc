@@ -2,15 +2,15 @@ local of_typeof = require("../utility/of_typeof")
 
 local EnumItem = of_typeof<<EnumItem>>("EnumItem")
 
-local function of_enumtype<T>(enum: T & Enum)
-	return function(x: unknown): T
+local function of_enumtype(enum: Enum)
+	return function(x: unknown): EnumItem
 		local x_enumtype = EnumItem(x).EnumType
 
 		if x_enumtype ~= enum then
-			error(`expected EnumItem of type {enum}, got {x_enumtype}`)
+			error(`expected EnumItem of type {enum}, got {x_enumtype}`, 2)
 		end
 
-		return x
+		return x :: EnumItem
 	end
 end
 
