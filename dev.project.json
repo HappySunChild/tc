@@ -1,0 +1,24 @@
+{
+	"name": "tc",
+	"tree": {
+		"$className": "DataModel",
+		"ServerScriptService": {
+			"devtests": {
+				"$className": "Folder",
+				"$ignoreUnknownInstances": true,
+				"tc": {
+					"$path": "dev/roblox"
+				}
+			}
+		},
+		"ReplicatedStorage": {
+			"Libraries": {
+				"$className": "Folder",
+				"$ignoreUnknownInstances": true,
+				"tc": {
+					"$path": "src"
+				}
+			}
+		}
+	}
+}
