@@ -8,6 +8,9 @@ return {
 	any = require("@self/utility/any"),
 	all = require("@self/utility/all"),
 	negate = require("@self/utility/negate"),
+	tuple = require("@self/utility/tuple"),
+	coerce = require("@self/utility/coerce"),
+	fallback = require("@self/utility/fallback"),
 
 	null = of_type<<nil>>("nil"),
 	string = of_type<<string>>("string"),
