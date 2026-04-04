@@ -9,6 +9,16 @@ return {
 	all = require("@self/utility/all"),
 	negate = require("@self/utility/negate"),
 
-	language = require("@self/language"),
+	null = of_type<<nil>>("nil"),
+	string = of_type<<string>>("string"),
+	number = of_type<<number>>("number"),
+	boolean = of_type<<boolean>>("boolean"),
+	table = of_type<<table>>("table"),
+	func = of_type<<(...any) -> ...any>>("function"),
+	thread = of_type<<thread>>("thread"),
+	userdata = of_type<<any>>("userdata"),
+	vector = of_type<<vector>>("vector"),
+	buffer = of_type<<buffer>>("buffer"),
+
 	rbx = require("@self/rbx"),
 }
