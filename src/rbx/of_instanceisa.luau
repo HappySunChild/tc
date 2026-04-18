@@ -2,7 +2,7 @@ local of_typeof = require("../utility/of_typeof")
 
 local Instance = of_typeof<<Instance>>("Instance")
 
-local function of_instancetype<T>(class_name: string)
+local function of_instanceisa<T>(class_name: string)
 	return function(x: unknown): T
 		local x_instance = Instance(x)
 
@@ -14,4 +14,4 @@ local function of_instancetype<T>(class_name: string)
 	end
 end
 
-return of_instancetype
+return of_instanceisa
