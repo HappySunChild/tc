@@ -2,6 +2,7 @@ local of_typeof = require("./utility/of_typeof")
 
 return {
 	of_instancetype = require("@self/of_instancetype"),
+	of_instanceisa = require("@self/of_instanceisa"),
 	of_enumtype = require("@self/of_enumtype"),
 	as_warn = require("@self/as_warn"),
 
