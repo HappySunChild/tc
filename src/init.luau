@@ -15,6 +15,7 @@ return {
 	null = of_type<<nil>>("nil"),
 	string = of_type<<string>>("string"),
 	number = of_type<<number>>("number"),
+	integer = of_type<<integer>>("integer"),
 	boolean = of_type<<boolean>>("boolean"),
 	table = of_type<<{ [any]: any }>>("table"),
 	func = of_type<<(...any) -> ...any>>("function"),
