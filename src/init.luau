@@ -16,7 +16,7 @@ return {
 	string = of_type<<string>>("string"),
 	number = of_type<<number>>("number"),
 	boolean = of_type<<boolean>>("boolean"),
-	table = of_type<<table>>("table"),
+	table = of_type<<{ [any]: any }>>("table"),
 	func = of_type<<(...any) -> ...any>>("function"),
 	thread = of_type<<thread>>("thread"),
 	userdata = of_type<<any>>("userdata"),
