@@ -11,6 +11,7 @@ return {
 	tuple = require("@self/utility/tuple"),
 	coerce = require("@self/utility/coerce"),
 	fallback = require("@self/utility/fallback"),
+	no_throw = require("@self/utility/no_throw"),
 
 	null = of_type<<nil>>("nil"),
 	string = of_type<<string>>("string"),
