@@ -3,6 +3,7 @@ local of_typeof = require("./utility/of_typeof")
 return {
 	of_instancetype = require("@self/of_instancetype"),
 	of_enumtype = require("@self/of_enumtype"),
+	as_warn = require("@self/as_warn"),
 
 	Axes = of_typeof<<Axes>>("Axes"),
 	BrickColor = of_typeof<<BrickColor>>("BrickColor"),
