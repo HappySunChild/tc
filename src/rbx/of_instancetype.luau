@@ -1,16 +1,22 @@
 local of_typeof = require("../utility/of_typeof")
 
-local Instance = of_typeof<<Instance>>("Instance")
+local Instance = of_typeof("Instance")
 
 local function of_instancetype<T>(class_name: string)
-	return function(x: unknown): T
-		local x_class = Instance(x).ClassName
+	return function(x: unknown): (boolean, string?)
+		local ok, err = Instance(x)
 
-		if x_class ~= class_name then
-			error(`expected Instance of class {class_name}, got {x_class}`, 2)
+		if not ok then
+			return false, err
 		end
 
-		return x
+		local x_class = (x :: Instance).ClassName
+
+		if x_class ~= class_name then
+			return false, `expected Instance of class {class_name}, got {x_class}`
+		end
+
+		return true, nil
 	end
 end
 

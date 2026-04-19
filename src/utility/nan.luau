@@ -1,11 +1,11 @@
 local repr = require("./repr")
 
-local function nan(x: unknown): number
+local function nan(x: unknown): (boolean, string?)
 	if x ~= x then
-		error(`expected nan, got {type(x)} {repr(x)}`, 2)
+		return false, `expected nan, got {type(x)} {repr(x)}`
 	end
 
-	return x :: number
+	return true, nil
 end
 
 return nan

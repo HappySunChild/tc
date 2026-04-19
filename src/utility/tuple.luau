@@ -1,17 +1,18 @@
-local function tuple<T...>(...: (unknown) -> unknown)
+local function tuple(...: (unknown) -> (boolean, string?))
 	local checks = { ... }
 
-	return function(...: unknown): T...
+	return function(...: unknown): (boolean, string?)
 		local args = { ... }
 
 		for i, check in checks do
-			local ok, err = pcall(check, args[i])
+			local ok, err = check(args[i])
+
 			if not ok then
-				error(`invalid tuple value at #{i}:\n\t{err}`)
+				return false, `invalid tuple value at #{i}:\n\t{err}`
 			end
 		end
 
-		return ... :: any
+		return true, nil
 	end
 end
 

@@ -1,8 +1,8 @@
-local function coerce<T>(check: (unknown) -> T, fallback: (unknown) -> T)
+local function coerce<T>(check: (unknown) -> (boolean, string?), fallback: (unknown) -> T)
 	return function(x: unknown): T
-		local ok = pcall(check, x)
+		local ok = check(x)
 
-		return if ok then x else check(fallback(x))
+		return if ok then x else fallback(x)
 	end
 end
 

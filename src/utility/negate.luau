@@ -4,16 +4,16 @@ type function neg(t: type)
 	return types.negationof(t)
 end
 
-local function negate<T>(check: (unknown) -> T, label: string?)
+local function negate(check: (unknown) -> (boolean, string?), label: string?)
 	label = label or "provided check"
-	return function(x: unknown): neg<T>
+	return function(x: unknown): (boolean, string?)
 		local ok = pcall(check, x)
 
 		if ok then
-			error(`expected opposite of {label}, got {typeof(x)} ({repr(x)})`, 2)
+			return false, `expected opposite of {label}, got {typeof(x)} ({repr(x)})`
 		end
 
-		return x :: any
+		return true, nil
 	end
 end
 

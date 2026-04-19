@@ -1,20 +1,20 @@
-local function any<T>(...: (unknown) -> T)
+local function any<T>(...: (unknown) -> (boolean, string?))
 	local checks = { ... }
 
-	return function(x: unknown): T
+	return function(x: unknown): (boolean, string?)
 		local fails = {}
 
 		for _, check in checks do
-			local ok, err: string = pcall(check, x)
+			local ok, err = check(x)
 
 			if ok then
-				return x
+				return true, nil
 			end
 
 			table.insert(fails, err)
 		end
 
-		error(`expected value to meet atleast one check:\n\t{table.concat(fails, "\n\t")}`, 2)
+		return false, `expected value to meet atleast one check:\n\t{table.concat(fails, "\n\t")}`
 	end
 end
 

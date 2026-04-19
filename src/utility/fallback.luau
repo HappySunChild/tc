@@ -1,6 +1,6 @@
-local function fallback<T>(check: (unknown) -> T, default: T)
+local function fallback<T>(check: (unknown) -> (boolean, string?), default: T)
 	return function(x: unknown): T
-		local ok = pcall(check, x)
+		local ok = check(x)
 
 		return if ok then x else default
 	end
