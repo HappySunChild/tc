@@ -1,5 +1,5 @@
 # tc
-A successor to the ubiquitous `t` module.
+A successor to the ubiquitous [`t`](https://github.com/osyrisrblx/t) module.
 
 This module is a collection of useful and simple utility functions for easily performing runtime type checks.
 Also comes with some Roblox specific utility functions that can be accessed via the `rbx` module.
