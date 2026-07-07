@@ -1,7 +1,8 @@
 # tc
 A successor to the ubiquitous `t` module.
 
-This module is a collection of useful and simple utility functions for easily performing runtime type checks. Also comes with some Roblox specific utility functions that can be accessed via the `rbx` module.
+This module is a collection of useful and simple utility functions for easily performing runtime type checks.
+Also comes with some Roblox specific utility functions that can be accessed via the `rbx` module.
 
 
 ## Example Usage
@@ -34,4 +35,28 @@ local only_materials_and_numbers = tc.any(tc_rbx.of_enumtype(Enum.Material), tc.
 
 assert(only_materials_and_numbers(123))
 assert(only_materials_and_numbers(Enum.Material.Air))
+```
+
+## Strictness Disclaimer
+By default `tc` does **not** error during runtime type mismatches, instead opting to return a boolean
+along with a error string explaining why it errored. Because of this you can simply plug your typechecker
+directly into an `assert` call for a simple and clean "strict" typecheck (as shown in the examples above).
+
+`tc` also provides a `strict` wrapper function which essentially does the assert check for you, while also
+returning the value of the initial passed in value. While this isn't generally useful it can be used in some
+clever ways like so:
+
+```luau
+const tc = require("tc")
+
+const strict_number = tc.strict(tc.number)
+
+const function create_thing(value: any)
+	return {
+		value = strict_number(value),
+	}
+end
+
+create_thing(1337)
+create_thing("not a number") -- throws: expected value of type number, got string ("not a number")
 ```
