@@ -134,15 +134,15 @@ const function fallback<T>(check: (any) -> (boolean, string?), default: T): (any
 	end
 end
 
-const function strict<T>(check: (any) -> (boolean, string?)): (any) -> T
-	return function(x: any): T
-		const ok, err = check(x)
+const function strict<T...>(check: (any) -> (boolean, string?)): (any) -> T...
+	return function(...: any): T...
+		const ok, err = check(...)
 
 		if not ok then
 			error(err, 2)
 		end
 
-		return x
+		return ...
 	end
 end
 
