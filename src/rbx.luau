@@ -1,5 +1,5 @@
-const funcs = require("./funcs")
-const of_typeof = funcs.of_typeof
+const lib = require("./lib")
+const of_typeof = lib.of_typeof
 
 const Instance = of_typeof("Instance")
 const EnumItem = of_typeof("EnumItem")

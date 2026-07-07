@@ -1,6 +1,6 @@
-const FULL_TABLE_PRINTOUT = false
-
 type Pair = { key: string, value: string }
+
+const FULL_TABLE_PRINTOUT = false
 
 const function render_table_pairs(pairs: { Pair }, depth: number)
 	if #pairs == 0 then

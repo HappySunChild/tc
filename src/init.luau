@@ -1,18 +1,18 @@
-const funcs = require("@self/funcs")
-const of_type = funcs.of_type
+const lib = require("@self/lib")
+const of_type = lib.of_type
 
 return {
-	of_type = funcs.of_type,
-	of_typeof = funcs.of_typeof,
-	literal = funcs.literal,
-	nan = funcs.nan,
-	any = funcs.any,
-	all = funcs.all,
-	negate = funcs.negate,
-	tuple = funcs.tuple,
-	coerce = funcs.coerce,
-	fallback = funcs.fallback,
-	strict = funcs.strict,
+	of_type = lib.of_type,
+	of_typeof = lib.of_typeof,
+	literal = lib.literal,
+	nan = lib.nan,
+	any = lib.any,
+	all = lib.all,
+	negate = lib.negate,
+	tuple = lib.tuple,
+	coerce = lib.coerce,
+	fallback = lib.fallback,
+	strict = lib.strict,
 
 	-- primitive language types
 	null = of_type("nil"),
