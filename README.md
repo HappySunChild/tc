@@ -39,7 +39,7 @@ assert(only_materials_and_numbers(Enum.Material.Air))
 
 ## Strictness Disclaimer
 By default `tc` does **not** error during runtime type mismatches, instead opting to return a boolean
-along with a error string explaining why it errored. Because of this you can simply plug your typechecker
+along with an error string explaining why it failed. Because of this you can simply plug your typechecker
 directly into an `assert` call for a simple and clean "strict" typecheck (as shown in the examples above).
 
 `tc` also provides a `strict` wrapper function which essentially does the assert check for you, while also
