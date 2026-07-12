@@ -59,14 +59,14 @@ const function tuple(...: (any) -> (boolean, string?)): (...any) -> (boolean, st
 	end
 end
 
-const function any<T>(...: (any) -> (boolean, string?)): (any) -> (boolean, string?)
+const function any(...: (...any) -> (boolean, string?)): (...any) -> (boolean, string?)
 	const checks = { ... }
 
-	return function(x: any): (boolean, string?)
+	return function(...: any): (boolean, string?)
 		const fails = {}
 
 		for _, check in checks do
-			const ok, err = check(x)
+			const ok, err = check(...)
 
 			if ok then
 				return true, nil
@@ -81,14 +81,14 @@ const function any<T>(...: (any) -> (boolean, string?)): (any) -> (boolean, stri
 	end
 end
 
-const function all<T>(...: (any) -> (boolean, string?)): (any) -> (boolean, string?)
+const function all(...: (any) -> (boolean, string?)): (...any) -> (boolean, string?)
 	const checks = { ... }
 
-	return function(x: any): (boolean, string?)
+	return function(...: any): (boolean, string?)
 		const fails = {}
 
 		for _, check in checks do
-			const ok, err = check(x)
+			const ok, err = check(...)
 
 			if not ok then
 				table.insert(fails, err)
@@ -105,36 +105,39 @@ const function all<T>(...: (any) -> (boolean, string?)): (any) -> (boolean, stri
 	end
 end
 
-const function negate(check: (any) -> (boolean, string?), label: string?): (any) -> (boolean, string?)
+const function negate(check: (...any) -> (boolean, string?), label: string?): (...any) -> (boolean, string?)
 	label = label or "provided check"
-	return function(x: any): (boolean, string?)
-		const ok = pcall(check, x)
+
+	return function(...: any): (boolean, string?)
+		const ok = check(...)
 
 		if ok then
-			return false, `expected opposite of {label}, got {typeof(x)} ({repr(x)})`
+			return false, `expected opposite of {label}`
 		end
 
 		return true, nil
 	end
 end
 
-const function coerce<T>(check: (any) -> (boolean, string?), coercer: (any) -> T): (any) -> T
-	return function(x: any): T
-		const ok = check(x)
+const function coerce<T...>(check: (...any) -> (boolean, string?), coercer: (...any) -> T...): (...any) -> T...
+	return function(...: any): T...
+		const ok = check(...)
 
-		return if ok then x else coercer(x)
+		return if ok then ... else coercer(...)
 	end
 end
 
-const function fallback<T>(check: (any) -> (boolean, string?), default: T): (any) -> T
-	return function(x: any): T
-		const ok = check(x)
+const function fallback<T...>(check: (...any) -> (boolean, string?), ...: T...): (...any) -> T...
+	const default = { ... }
 
-		return if ok then x else default
+	return function(...: any): T...
+		const ok = check(...)
+
+		return if ok then ... else unpack(default)
 	end
 end
 
-const function strict<T...>(check: (any) -> (boolean, string?)): (any) -> T...
+const function strict<T...>(check: (any) -> (boolean, string?)): (...any) -> T...
 	return function(...: any): T...
 		const ok, err = check(...)
 
