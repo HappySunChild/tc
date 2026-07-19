@@ -1,78 +1,13 @@
-const lib = require("./lib")
-const of_typeof = lib.of_typeof
+const checks = require("@self/checks")
+const policies = require("@self/policies")
 
-const Instance = of_typeof("Instance")
-const EnumItem = of_typeof("EnumItem")
-
-local function of_instancetype<T>(class_name: string)
-	return function(x: unknown): (boolean, string?)
-		local ok, err = Instance(x)
-
-		if not ok then
-			return false, err
-		end
-
-		local x_class = (x :: Instance).ClassName
-
-		if x_class ~= class_name then
-			return false, `expected Instance of class {class_name}, got {x_class}`
-		end
-
-		return true, nil
-	end
-end
-
-const function of_instanceisa<T>(class_name: string)
-	return function(x: unknown): (boolean, string?)
-		const ok, err = Instance(x)
-
-		if not ok then
-			return false, err
-		end
-
-		if not (x :: Instance):IsA(class_name) then
-			return false, `expected Instance to match or inherit from {class_name}, got {(x :: Instance).ClassName}`
-		end
-
-		return true, nil
-	end
-end
-
-const function of_enumtype(enum: Enum)
-	return function(x: unknown): (boolean, string?)
-		const ok, err = EnumItem(x)
-
-		if not ok then
-			return false, err
-		end
-
-		if (x :: EnumItem).EnumType ~= enum then
-			return false, `expected EnumItem of type {enum}, got {x.EnumType}`
-		end
-
-		return true, nil
-	end
-end
-
-const function as_warn<T>(check: (x: unknown) -> T)
-	return function(x: unknown): T?
-		const ok, err = pcall(check, x)
-
-		if not ok then
-			warn(err)
-
-			return nil
-		end
-
-		return x
-	end
-end
+const of_typeof = require("./checks").of_typeof
 
 return {
-	of_instancetype = of_instancetype,
-	of_instanceisa = of_instanceisa,
-	of_enumtype = of_enumtype,
-	as_warn = as_warn,
+	of_instancetype = checks.of_instancetype,
+	of_instanceisa = checks.of_instanceisa,
+	of_enumtype = checks.of_enumtype,
+	as_warn = policies.as_warn,
 
 	Axes = of_typeof("Axes"),
 	BrickColor = of_typeof("BrickColor"),

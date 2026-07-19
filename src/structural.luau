@@ -1,0 +1,100 @@
+const types = require("./types")
+
+const repr = require("./repr")
+
+const checks = require("./checks")
+const of_type = checks.of_type
+
+const validate_table = of_type("table")
+
+const function array(element_check: types.check): types.check
+	return function(x: any): (boolean, string?)
+		const t_ok, t_err = validate_table(x)
+
+		if not t_ok then
+			return false, t_err
+		end
+
+		const count = #x
+		const is_mixed = next(x, if count > 0 then count else nil) ~= nil
+
+		if is_mixed then
+			return false, "expected array value, got mixed table"
+		end
+
+		for index, element in x do
+			const ok, err = element_check(element)
+
+			if not ok then
+				return false, `invalid array element at index {index};\n\t{err}`
+			end
+		end
+
+		return true, nil
+	end
+end
+
+const function map(key_check: types.check): types.check
+	return function(x: any): (boolean, string?)
+		const t_ok, t_err = validate_table(x)
+
+		if not t_ok then
+			return false, t_err
+		end
+
+		for key in x do
+			const ok, err = key_check(key)
+
+			if not ok then
+				return false, `invalid value in map {err}`
+			end
+		end
+
+		return true, nil
+	end
+end
+
+const function record(shape: { [any]: types.check }): types.check
+	return function(x: any): (boolean, string?)
+		const t_ok, t_err = validate_table(x)
+
+		if not t_ok then
+			return false, t_err
+		end
+
+		for key, validate in shape do
+			const ok, err = validate(x[key])
+
+			if not ok then
+				return false, `invalid value at key {repr(key)};\n\t{err}`
+			end
+		end
+
+		return true, nil
+	end
+end
+
+const function tuple(...: types.check): types.check
+	const checks = { ... }
+
+	return function(...: any): (boolean, string?)
+		const args = { ... }
+
+		for index, check in checks do
+			const ok, err = check(args[index])
+
+			if not ok then
+				return false, `invalid tuple value at #{index}:\n\t{err}`
+			end
+		end
+
+		return true, nil
+	end
+end
+
+return {
+	array = array,
+	map = map,
+	record = record,
+	tuple = tuple,
+}

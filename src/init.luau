@@ -1,18 +1,28 @@
-const lib = require("@self/lib")
-const of_type = lib.of_type
+const checks = require("@self/checks")
+const combinators = require("@self/combinators")
+const policies = require("@self/policies")
+const structural = require("@self/structural")
+
+const of_type = checks.of_type
 
 return {
-	of_type = lib.of_type,
-	of_typeof = lib.of_typeof,
-	literal = lib.literal,
-	nan = lib.nan,
-	any = lib.any,
-	all = lib.all,
-	negate = lib.negate,
-	tuple = lib.tuple,
-	coerce = lib.coerce,
-	fallback = lib.fallback,
-	strict = lib.strict,
+	of_type = checks.of_type,
+	of_typeof = checks.of_typeof,
+	literal = checks.literal,
+	nan = checks.nan,
+
+	any = combinators.any,
+	all = combinators.all,
+	negate = combinators.negate,
+
+	array = structural.array,
+	map = structural.map,
+	record = structural.record,
+	tuple = structural.tuple,
+
+	coerce = policies.coerce,
+	fallback = policies.fallback,
+	strict = policies.strict,
 
 	-- primitive language types
 	null = of_type("nil"),
