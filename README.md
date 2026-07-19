@@ -42,8 +42,8 @@ By default `tc` does **not** error during runtime type mismatches, instead optin
 along with an error string explaining why it failed. Because of this you can simply plug your typechecker
 directly into an `assert` call for a simple and clean "strict" typecheck (as shown in the examples above).
 
-`tc` also provides a `strict` wrapper function which essentially does the assert check for you, while also
-returning the value of the initial passed in value. While this isn't generally useful it can be used in some
+`tc` also provides a `strict` policy which essentially does the assert check for you, while also
+returning the value given to it. While this isn't generally useful it can be used in some
 clever ways like so:
 
 ```luau
