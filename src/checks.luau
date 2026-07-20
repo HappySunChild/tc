@@ -1,7 +1,8 @@
-const types = require("./types")
 const repr = require("./repr")
 
-const function of_type(type_name: string): types.check
+export type check = (...any) -> (boolean, string?)
+
+const function of_type(type_name: string): check
 	return function(x: unknown): (boolean, string?)
 		if type(x) ~= type_name then
 			return false, `expected value of type {type_name}, got {type(x)} ({repr(x)})`
@@ -11,7 +12,7 @@ const function of_type(type_name: string): types.check
 	end
 end
 
-const function of_typeof(type_name: string): types.check
+const function of_typeof(type_name: string): check
 	return function(x: unknown): (boolean, string?)
 		if typeof(x) ~= type_name then
 			return false, `expected value of typeof {type_name}, got {typeof(x)} ({repr(x)})`
@@ -21,7 +22,7 @@ const function of_typeof(type_name: string): types.check
 	end
 end
 
-const function literal(literal_value: any): types.check
+const function literal(literal_value: any): check
 	return function(x: unknown): (boolean, string?)
 		if x ~= literal_value then
 			return false,

@@ -1,6 +1,8 @@
-const types = require("./types")
+const checks = require("./checks")
 
-const function coerce<T...>(check: types.check, coercer: (...any) -> T...): types.policy<T...>
+export type policy<T... = ...any> = (...any) -> T...
+
+const function coerce<T...>(check: checks.check, coercer: (...any) -> T...): policy<T...>
 	return function(...: any): T...
 		const ok = check(...)
 
@@ -8,7 +10,7 @@ const function coerce<T...>(check: types.check, coercer: (...any) -> T...): type
 	end
 end
 
-const function fallback<T...>(check: types.check, ...: T...): types.policy<T...>
+const function fallback<T...>(check: checks.check, ...: T...): policy<T...>
 	const default = { ... }
 
 	return function(...: any): T...
@@ -18,7 +20,7 @@ const function fallback<T...>(check: types.check, ...: T...): types.policy<T...>
 	end
 end
 
-const function strict<T...>(check: types.check): types.policy<T...>
+const function strict<T...>(check: checks.check): policy<T...>
 	return function(...: any): T...
 		const ok, err = check(...)
 

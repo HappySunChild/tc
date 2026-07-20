@@ -1,4 +1,6 @@
-const function any(...: (...any) -> (boolean, string?)): (...any) -> (boolean, string?)
+const checks = require("./checks")
+
+const function any(...: checks.check): checks.check
 	const checks = { ... }
 
 	return function(...: any): (boolean, string?)
@@ -20,7 +22,7 @@ const function any(...: (...any) -> (boolean, string?)): (...any) -> (boolean, s
 	end
 end
 
-const function all(...: (any) -> (boolean, string?)): (...any) -> (boolean, string?)
+const function all(...: checks.check): checks.check
 	const checks = { ... }
 
 	return function(...: any): (boolean, string?)
@@ -44,7 +46,7 @@ const function all(...: (any) -> (boolean, string?)): (...any) -> (boolean, stri
 	end
 end
 
-const function negate(check: (...any) -> (boolean, string?), label: string?): (...any) -> (boolean, string?)
+const function negate(check: checks.check, label: string?): checks.check
 	label = label or "provided check"
 
 	return function(...: any): (boolean, string?)

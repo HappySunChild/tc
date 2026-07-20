@@ -1,5 +1,3 @@
-const types = require("./types")
-
 const repr = require("./repr")
 
 const checks = require("./checks")
@@ -7,7 +5,7 @@ const of_type = checks.of_type
 
 const validate_table = of_type("table")
 
-const function array(element_check: types.check): types.check
+const function array(element_check: checks.check): checks.check
 	return function(x: any): (boolean, string?)
 		const t_ok, t_err = validate_table(x)
 
@@ -34,7 +32,7 @@ const function array(element_check: types.check): types.check
 	end
 end
 
-const function map(key_check: types.check): types.check
+const function map(key_check: checks.check): checks.check
 	return function(x: any): (boolean, string?)
 		const t_ok, t_err = validate_table(x)
 
@@ -54,7 +52,7 @@ const function map(key_check: types.check): types.check
 	end
 end
 
-const function record(shape: { [any]: types.check }): types.check
+const function record(shape: { [any]: checks.check }): checks.check
 	return function(x: any): (boolean, string?)
 		const t_ok, t_err = validate_table(x)
 
@@ -74,7 +72,7 @@ const function record(shape: { [any]: types.check }): types.check
 	end
 end
 
-const function tuple(...: types.check): types.check
+const function tuple(...: checks.check): checks.check
 	const checks = { ... }
 
 	return function(...: any): (boolean, string?)
