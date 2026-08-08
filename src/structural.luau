@@ -32,7 +32,7 @@ const function array(element_check: checks.check): checks.check
 	end
 end
 
-const function map(key_check: checks.check): checks.check
+const function map(key_check: checks.check, value_check: checks.check): checks.check
 	return function(x: any): (boolean, string?)
 		const t_ok, t_err = validate_table(x)
 
@@ -40,11 +40,17 @@ const function map(key_check: checks.check): checks.check
 			return false, t_err
 		end
 
-		for key in x do
-			const ok, err = key_check(key)
+		for key, value in x do
+			const ok_key, err_key = key_check(key)
 
-			if not ok then
-				return false, `invalid value in map {err}`
+			if not ok_key then
+				return false, `invalid key in map;\n\t{err_key}`
+			end
+
+			const ok_value, err_value = value_check(value)
+
+			if not ok_value then
+				return false, `invalid value in map at key {repr(key)};\n\t{err_value}`
 			end
 		end
 
