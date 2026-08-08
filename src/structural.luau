@@ -58,7 +58,7 @@ const function map(key_check: checks.check, value_check: checks.check): checks.c
 	end
 end
 
-const function record(shape: { [any]: checks.check }): checks.check
+const function struct(shape: { [any]: checks.check }): checks.check
 	return function(x: any): (boolean, string?)
 		const t_ok, t_err = validate_table(x)
 
@@ -99,6 +99,6 @@ end
 return {
 	array = array,
 	map = map,
-	record = record,
+	struct = struct,
 	tuple = tuple,
 }

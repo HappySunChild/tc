@@ -17,7 +17,7 @@ return {
 
 	array = structural.array,
 	map = structural.map,
-	record = structural.record,
+	struct = structural.struct,
 	tuple = structural.tuple,
 
 	coerce = policies.coerce,
