@@ -2,6 +2,7 @@ const checks = require("./checks")
 
 export type policy<T... = ...any> = (...any) -> T...
 
+--- Constructs a new policy that returns the result of `coercer` if the provided `check` does not pass.
 const function coerce<T...>(check: checks.check, coercer: (...any) -> T...): policy<T...>
 	return function(...: any): T...
 		const ok = check(...)
@@ -10,6 +11,7 @@ const function coerce<T...>(check: checks.check, coercer: (...any) -> T...): pol
 	end
 end
 
+--- Constructs a new policy that returns the provided fallback values if the provided `check` does not pass.
 const function fallback<T...>(check: checks.check, ...: T...): policy<T...>
 	const default = { ... }
 
@@ -20,6 +22,7 @@ const function fallback<T...>(check: checks.check, ...: T...): policy<T...>
 	end
 end
 
+--- Constructs a new policy that throws an error if the provided `check` does not pass.
 const function strict<T...>(check: checks.check): policy<T...>
 	return function(...: any): T...
 		const ok, err = check(...)

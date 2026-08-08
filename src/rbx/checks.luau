@@ -1,9 +1,11 @@
-const of_typeof = require("../checks").of_typeof
+const checks = require("../checks")
+const of_typeof = checks.of_typeof
 
 const Instance = of_typeof("Instance")
 const EnumItem = of_typeof("EnumItem")
 
-local function of_instancetype<T>(class_name: string)
+--- Constructs a new check that passes if the provided value is an `Instance` with a `ClassName` equal to `class_name`.
+local function of_instancetype<T>(class_name: string): checks.check
 	return function(x: unknown): (boolean, string?)
 		local ok, err = Instance(x)
 
@@ -21,7 +23,8 @@ local function of_instancetype<T>(class_name: string)
 	end
 end
 
-const function of_instanceisa<T>(class_name: string)
+--- Constructs a new check that passes if the provided value is an `Instance` that is of/inherits from `class_name`.
+const function of_instanceisa<T>(class_name: string): checks.check
 	return function(x: unknown): (boolean, string?)
 		const ok, err = Instance(x)
 
@@ -37,7 +40,8 @@ const function of_instanceisa<T>(class_name: string)
 	end
 end
 
-const function of_enumtype(enum: Enum)
+--- Constructs a new check that passes if the provided value is an `EnumItem` that is of the provided `Enum` type (e.g. Enum.Material).
+const function of_enumtype(enum: Enum): checks.check
 	return function(x: unknown): (boolean, string?)
 		const ok, err = EnumItem(x)
 

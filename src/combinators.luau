@@ -1,5 +1,6 @@
 const checks = require("./checks")
 
+--- Constructs a new check that only passes if atleast one of the given checks pass.
 const function any(...: checks.check): checks.check
 	const checks = { ... }
 
@@ -22,6 +23,7 @@ const function any(...: checks.check): checks.check
 	end
 end
 
+--- Constructs a new check that only passes if all of the given checks pass.
 const function all(...: checks.check): checks.check
 	const checks = { ... }
 
@@ -46,6 +48,7 @@ const function all(...: checks.check): checks.check
 	end
 end
 
+--- Constructs a new check that is the *negation* of `check`.
 const function negate(check: checks.check, label: string?): checks.check
 	label = label or "provided check"
 

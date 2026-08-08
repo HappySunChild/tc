@@ -5,6 +5,7 @@ const of_type = checks.of_type
 
 const validate_table = of_type("table")
 
+--- Constructs a new check that passes if the given value is an array containing only elements that pass the provided `element_check`.
 const function array(element_check: checks.check): checks.check
 	return function(x: any): (boolean, string?)
 		const t_ok, t_err = validate_table(x)
@@ -32,6 +33,7 @@ const function array(element_check: checks.check): checks.check
 	end
 end
 
+--- Constructs a new check that passes if the given value is a map containg only key/value pairs that pass the provided `key_check` and `value_check`.
 const function map(key_check: checks.check, value_check: checks.check): checks.check
 	return function(x: any): (boolean, string?)
 		const t_ok, t_err = validate_table(x)
@@ -58,6 +60,7 @@ const function map(key_check: checks.check, value_check: checks.check): checks.c
 	end
 end
 
+--- Constructs a new check that passes if the given value is a structured table that passes the checks provided in `shape`.
 const function struct(shape: { [any]: checks.check }): checks.check
 	return function(x: any): (boolean, string?)
 		const t_ok, t_err = validate_table(x)
@@ -78,6 +81,7 @@ const function struct(shape: { [any]: checks.check }): checks.check
 	end
 end
 
+--- Constructs a new check that passes if every given value passes it's corresponding check in the vararg.
 const function tuple(...: checks.check): checks.check
 	const checks = { ... }
 
